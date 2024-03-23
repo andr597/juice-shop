@@ -4,7 +4,7 @@ stages:
   - scan
 
 variables:
-  SAST_EXCLUDE_PATHS: "node_modules/**/*"
+  SAST_EXCLUDE_PATHS: "" # Порожній рядок або відсутність цього параметра означає, що будуть включені всі файли для аналізу
 
 before_script:
   - npm install # Assuming JuiceShop is a Node.js project
@@ -28,6 +28,7 @@ sast:
     - docker run
         --volume "$PWD:/code"
         --workdir /code
+        --env SAST_EXCLUDE_PATHS
         registry.gitlab.com/gitlab-org/security-products/analyzers/sast:latest
   artifacts:
     reports:
