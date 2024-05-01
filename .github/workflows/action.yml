@@ -13,3 +13,4 @@ jobs:
           defectdojo-username: admin
           defectdojo-password: Anderlord1!
           defectdojo-product: Juice Shop
+          defactdojo-token: cdb534f92bdb20e27f3e08a79075e837e71aab4
