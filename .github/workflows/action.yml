@@ -1,0 +1,69 @@
+name: 'DefectDojo Actions'
+description: >
+  Import data into DefectDojo
+inputs:
+  token:
+    description: >
+      (string($date)) The personal access token used to access the DefectDojo API.
+    required: true
+  defectdojo_url:
+    description: >
+      (string) The DefectDojo base url. Example: https://defectdojo.example.com
+    required: true
+  product_type:
+    description: >
+      (string) The DefectDojo productType name.
+    required: true
+  product:
+    description: >
+      (string) The DefectDojo product name.
+    required: true
+  engagement:
+    description: >
+      (string) The DefectDojo engagement name.
+    required: true
+  environment:
+    description: >
+      (string) The DefectDojo environment name.
+    required: true
+  tools:
+    description: >
+      (string) The list of DefectDojo tools. Example: ( "SonarQube API Import" "Github Vulnerability Scan" "Acunetix Scan" ).
+    required: true
+  sonar_projectKey:
+    description: >
+      (string) SonarQube projectKey for integration Sonar with API.
+  github_token:
+    description: >
+      (string) Github token for recieving Github Vulnerability Scan report.
+  github_repository:
+    description: >
+      (string) Github repository name. Format: owner/repo
+  reports:
+    description: >
+      (string) JSON string with report path. Example: '{"Github Vulnerability Scan": "github.json"}'.
+outputs:
+  response:
+    description: 'DefectDojo result have been published'
+    value: ${{ steps.import.outputs.response }}
+runs:
+  using: 'composite'
+  steps:
+    - id: import
+      run: $GITHUB_ACTION_PATH/entrypoint.sh
+      shell: bash
+      env:
+        DEFECTDOJO_TOKEN: ${{ inputs.token }}
+        DEFECTDOJO_URL: ${{ inputs.defectdojo_url }}
+        DEFECTDOJO_PRODUCT_TYPE: ${{ inputs.product_type }}
+        DEFECTDOJO_PRODUCT: ${{ inputs.product }}
+        DEFECTDOJO_ENGAGEMENT: ${{ inputs.engagement }}
+        DEFECTDOJO_ENVIRONMENT: ${{ inputs.environment }}
+        DEFECTDOJO_TOOLS: ${{ inputs.tools }}
+        DEFECTDOJO_SONAR_KEY: ${{ inputs.sonar_projectKey }}
+        DEFECTDOJO_GITHUB_TOKEN: ${{ inputs.github_token }}
+        DEFECTDOJO_GITHUB_REPO: ${{ inputs.github_repository }}
+        DEFECTDOJO_REPORTS: ${{ inputs.reports }}
+branding:
+  icon: 'target'
+  color: 'gray-dark'
