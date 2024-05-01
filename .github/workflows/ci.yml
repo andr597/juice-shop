@@ -23,10 +23,9 @@ jobs:
       # Вместо npm audit вы можете использовать инструменты сканирования, такие как SonarQube, OWASP ZAP, или другие, в зависимости от ваших потребностей и стека технологий.
       
       # Шаг отправки результатов сканирования в DefectDojo
-      - name: Juice Shop
+      - name: Send vulnerability report to DefectDojo
         env:
           DEFECT_DOJO_API_KEY: cdb534f92bdb20e27f3e08a79075e837e71aab4b
-          DEFECT_DOJO_URL: http://172.26.66.248:8080//api/v2
+          DEFECT_DOJO_URL: http://172.26.66.248:8080/api/v2
         run: |
-          curl -X POST -H "Content-Type: application/json" -H "Authorization: Token cdb534f92bdb20e27f3e08a79075e837e71aab4b" -d @audit.json http://172.26.66.248:8080//api/v2/import-scan-results/
-
+          curl -X POST -H "Content-Type: application/json" -H "Authorization: Token cdb534f92bdb20e27f3e08a79075e837e71aab4b" -d @audit.json "http://172.26.66.248:8080/api/v2/import-scan-results/"
